@@ -1136,6 +1136,102 @@
       setTimeout(() => p.remove(), 18000);
     }
     setInterval(createParticle, 1500);
+
+    // WUEKBIE DUCK SOUND - LUCU & UNIK
+    function playDuckSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Suku kata bebek: WU - EK - BIE
+        function syllable(time, startFreq, endFreq, duration, vol) {
+          const osc = ctx.createOscillator();
+          const osc2 = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const filter = ctx.createBiquadFilter();
+          const vibrato = ctx.createOscillator();
+          const vibratoGain = ctx.createGain();
+
+          // Vibrato untuk efek lucu
+          vibrato.frequency.value = 18;
+          vibratoGain.gain.value = 30;
+          vibrato.connect(vibratoGain);
+          vibratoGain.connect(osc.frequency);
+
+          filter.type = 'bandpass';
+          filter.frequency.value = 900;
+          filter.Q.value = 4;
+
+          osc.type = 'sawtooth';
+          osc2.type = 'square';
+
+          osc.frequency.setValueAtTime(startFreq, time);
+          osc.frequency.linearRampToValueAtTime(endFreq, time + duration * 0.6);
+          osc.frequency.linearRampToValueAtTime(startFreq * 0.7, time + duration);
+
+          osc2.frequency.setValueAtTime(startFreq * 1.5, time);
+          osc2.frequency.linearRampToValueAtTime(endFreq * 0.8, time + duration);
+
+          const osc2Gain = ctx.createGain();
+          osc2Gain.gain.value = 0.08;
+          osc2.connect(osc2Gain);
+          osc2Gain.connect(filter);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+
+          gain.gain.setValueAtTime(0, time);
+          gain.gain.linearRampToValueAtTime(vol, time + 0.015);
+          gain.gain.setValueAtTime(vol, time + duration * 0.5);
+          gain.gain.linearRampToValueAtTime(0, time + duration);
+
+          vibrato.start(time);
+          vibrato.stop(time + duration);
+          osc.start(time);
+          osc.stop(time + duration);
+          osc2.start(time);
+          osc2.stop(time + duration);
+        }
+
+        // Pilih mode suara random
+        const mode = Math.floor(Math.random() * 4);
+        const now = ctx.currentTime;
+
+        if (mode === 0) {
+          // WUEK! - satu suku pendek naik
+          syllable(now, 250, 700, 0.22, 0.45);
+
+        } else if (mode === 1) {
+          // WU-EK - dua suku
+          syllable(now, 220, 600, 0.18, 0.4);
+          syllable(now + 0.2, 600, 350, 0.2, 0.35);
+
+        } else if (mode === 2) {
+          // WUEK-BIE - tiga suku lucu
+          syllable(now, 230, 650, 0.15, 0.4);
+          syllable(now + 0.17, 580, 320, 0.15, 0.35);
+          syllable(now + 0.35, 400, 550, 0.2, 0.3);
+
+        } else {
+          // WUEK WUEK WUEK - tiga kali cepat
+          syllable(now,        280, 750, 0.14, 0.45);
+          syllable(now + 0.17, 260, 700, 0.14, 0.4);
+          syllable(now + 0.34, 240, 680, 0.14, 0.35);
+        }
+
+      } catch(e) {}
+    }
+
+    // Bunyi bebek setiap klik di mana saja
+    document.addEventListener('click', function() {
+      playDuckSound();
+    });
+
+    // Bunyi bebek sambutan saat halaman dibuka
+    window.addEventListener('load', function() {
+      setTimeout(function() { playDuckSound(); }, 1200);
+    });
+
   </script>
 </body>
 </html>
