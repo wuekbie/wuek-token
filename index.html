@@ -989,7 +989,7 @@
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#community">Community</a></li>
     </ul>
-    <a href="https://pancakeswap.finance/swap?outputCurrency=0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="nav-btn">Buy $WUEK</a>
+    <a href="https://pancakeswap.finance/swap" id="navBuyBtn" target="_blank" class="nav-btn">Buy $WUEK</a>
   </nav>
 
   <!-- HERO -->
@@ -1010,7 +1010,7 @@
     <p class="hero-desc">WUEKBIE ($WUEK) is the next-generation meme coin built on BNB Smart Chain. With auto-burn mechanics, locked liquidity, and a community-driven mission — we're not just a token, we're a revolution.</p>
 
     <div class="hero-btns">
-      <a href="https://pancakeswap.finance/swap?outputCurrency=0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="btn-primary">🚀 Buy on PancakeSwap</a>
+      <a href="https://pancakeswap.finance/swap" id="heroBuyBtn" target="_blank" class="btn-primary">🚀 Buy on PancakeSwap</a>
       <a href="#tokenomics" class="btn-outline">View Tokenomics</a>
     </div>
 
@@ -1235,7 +1235,7 @@
     </div>
 
     <div style="text-align:center;margin-top:3rem;">
-      <a href="https://pancakeswap.finance/swap?outputCurrency=0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="btn-primary">🥞 Open PancakeSwap</a>
+      <a href="https://pancakeswap.finance/swap" id="buyPageBtn" target="_blank" class="btn-primary">🥞 Open PancakeSwap</a>
     </div>
   </section>
 
@@ -1311,7 +1311,7 @@
       <a href="https://bscscan.com/token/0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="social-link">
         <span class="social-icon">🔍</span> BscScan
       </a>
-      <a href="https://pancakeswap.finance/swap?outputCurrency=0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="social-link">
+      <a href="https://pancakeswap.finance/swap" id="communityBuyBtn" target="_blank" class="social-link">
         <span class="social-icon">🥞</span> PancakeSwap
       </a>
     </div>
@@ -1393,6 +1393,16 @@
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 18000);
     }
+    // Update semua link PancakeSwap dengan kontrak saat launch
+    function activateBuyLinks() {
+      const fullLink = `https://pancakeswap.finance/swap?outputCurrency=${CONTRACT}`;
+      const ids = ['navBuyBtn', 'heroBuyBtn', 'buyPageBtn', 'communityBuyBtn'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.href = fullLink;
+      });
+    }
+
     // ─── COUNTDOWN TIMER ───
     const LAUNCH_TIME = new Date('2026-05-04T00:00:00Z').getTime();
     const CONTRACT = '0xF1703D9622D85fFAA34A4527996BF066a41C83C9';
@@ -1410,6 +1420,7 @@
         document.getElementById('price-section').classList.add('show');
         document.getElementById('heroContractPlaceholder').style.display = 'none';
         document.getElementById('heroContract').style.display = 'inline-flex';
+        activateBuyLinks();
         fetchPrice();
         return;
       }
@@ -1485,6 +1496,7 @@
       document.getElementById('contractReveal').classList.add('show');
       document.getElementById('heroContractPlaceholder').style.display = 'none';
       document.getElementById('heroContract').style.display = 'inline-flex';
+      activateBuyLinks();
       fetchPrice();
       setInterval(fetchPrice, 30000);
     } else {
