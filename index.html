@@ -795,6 +795,181 @@
       .footer-disclaimer { text-align: center; }
       .steps::before { display: none; }
     }
+
+    /* ─── COUNTDOWN TIMER ─── */
+    #countdown-section {
+      padding: 5rem 4rem;
+      background: var(--dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(245,200,66,0.1);
+      border-bottom: 1px solid rgba(245,200,66,0.1);
+    }
+    #countdown-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245,200,66,0.05), transparent);
+      pointer-events: none;
+    }
+    .countdown-label {
+      font-size: 0.7rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .countdown-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 2.5rem;
+      color: var(--light);
+    }
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .countdown-box {
+      background: rgba(245,200,66,0.05);
+      border: 1px solid rgba(245,200,66,0.3);
+      padding: 1.5rem 2rem;
+      min-width: 110px;
+      position: relative;
+      overflow: hidden;
+    }
+    .countdown-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+    .countdown-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--gold);
+      line-height: 1;
+      text-shadow: var(--glow);
+      display: block;
+    }
+    .countdown-unit {
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(240,236,224,0.4);
+      margin-top: 0.3rem;
+    }
+    .countdown-contract {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeUp 1s forwards;
+    }
+    .countdown-contract.show { display: flex; }
+    .launch-badge {
+      background: var(--gold);
+      color: var(--dark);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 4px;
+      padding: 0.5rem 2rem;
+      animation: pulse 1s infinite;
+    }
+
+    /* ─── PRICE TRACKER ─── */
+    #price-section {
+      display: none;
+      padding: 4rem 4rem;
+      background: var(--dark2);
+      border-top: 1px solid rgba(245,200,66,0.1);
+      border-bottom: 1px solid rgba(245,200,66,0.1);
+    }
+    #price-section.show { display: block; }
+    .price-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .price-header {
+      font-size: 0.7rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .price-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--gold);
+      text-shadow: var(--glow);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .price-change {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .price-change.up { color: var(--green); }
+    .price-change.down { color: var(--accent); }
+    .price-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .price-stat {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(245,200,66,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+    .price-stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+    }
+    .price-stat-label {
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(240,236,224,0.4);
+      margin-top: 0.3rem;
+    }
+    .price-update {
+      font-size: 0.65rem;
+      color: rgba(240,236,224,0.3);
+      letter-spacing: 1px;
+    }
+    .price-live-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 5px;
+      animation: pulse 1.5s infinite;
+    }
+    .dexscreener-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      border: 1px solid rgba(245,200,66,0.3);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      cursor: none;
+    }
+    .dexscreener-btn:hover { background: rgba(245,200,66,0.1); border-color: var(--gold); }
   </style>
 </head>
 <body>
@@ -851,6 +1026,77 @@
     </div>
   </section>
 
+  <!-- COUNTDOWN TIMER -->
+  <section id="countdown-section">
+    <div class="countdown-label">🚀 Token Launch</div>
+    <h2 class="countdown-title reveal">LAUNCHING IN</h2>
+
+    <!-- Timer (tampil sebelum launch) -->
+    <div class="countdown-grid" id="timerGrid">
+      <div class="countdown-box">
+        <span class="countdown-num" id="cdDays">00</span>
+        <div class="countdown-unit">Days</div>
+      </div>
+      <div class="countdown-box">
+        <span class="countdown-num" id="cdHours">00</span>
+        <div class="countdown-unit">Hours</div>
+      </div>
+      <div class="countdown-box">
+        <span class="countdown-num" id="cdMinutes">00</span>
+        <div class="countdown-unit">Minutes</div>
+      </div>
+      <div class="countdown-box">
+        <span class="countdown-num" id="cdSeconds">00</span>
+        <div class="countdown-unit">Seconds</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.75rem;color:rgba(240,236,224,0.4);letter-spacing:2px;" id="launchDateText">
+      MAY 4, 2026 · 00:00 UTC
+    </p>
+
+    <!-- Contract reveal (tampil setelah launch) -->
+    <div class="countdown-contract" id="contractReveal">
+      <div class="launch-badge">🎉 WE ARE LIVE!</div>
+      <p style="font-size:0.8rem;color:rgba(240,236,224,0.6);letter-spacing:2px;margin-top:1rem;">CONTRACT ADDRESS</p>
+      <div class="contract-badge" style="display:inline-flex;">
+        <span style="color:rgba(240,236,224,0.4);font-size:0.6rem;letter-spacing:2px;">CA:</span>
+        <span style="color:var(--gold);">0xF1703D9622D85fFAA34A4527996BF066a41C83C9</span>
+        <button class="copy-btn" onclick="copyContract()">COPY</button>
+      </div>
+      <a href="https://pancakeswap.finance/swap?outputCurrency=0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="btn-primary" style="margin-top:1rem;">🥞 Buy $WUEK Now!</a>
+    </div>
+  </section>
+
+  <!-- PRICE TRACKER (tampil setelah launch) -->
+  <section id="price-section">
+    <div class="price-inner">
+      <div class="price-header"><span class="price-live-dot"></span>Live Price · $WUEK</div>
+      <div class="price-main" id="priceMain">$0.000000</div>
+      <div class="price-change up" id="priceChange">+0.00%</div>
+      <div class="price-stats-grid">
+        <div class="price-stat">
+          <div class="price-stat-val" id="priceMarketCap">—</div>
+          <div class="price-stat-label">Market Cap</div>
+        </div>
+        <div class="price-stat">
+          <div class="price-stat-val" id="priceVolume">—</div>
+          <div class="price-stat-label">Volume 24h</div>
+        </div>
+        <div class="price-stat">
+          <div class="price-stat-val" id="priceLiq">—</div>
+          <div class="price-stat-label">Liquidity</div>
+        </div>
+        <div class="price-stat">
+          <div class="price-stat-val" id="priceTxns">—</div>
+          <div class="price-stat-label">Transactions 24h</div>
+        </div>
+      </div>
+      <div class="price-update" id="priceUpdated">Updating...</div>
+      <a href="https://dexscreener.com/bsc/0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="dexscreener-btn">📊 View on DexScreener</a>
+    </div>
+  </section>
+
   <!-- STATS -->
   <section id="stats">
     <div class="stats-grid">
@@ -879,7 +1125,7 @@
       <div class="section-tag">About WUEKBIE</div>
       <h2 class="section-title reveal">WHY<br><span style="color:var(--gold)">$WUEK?</span></h2>
       <p class="section-text reveal">WUEKBIE is more than just a meme coin. Built on the BNB Smart Chain with rock-solid tokenomics, every sell transaction automatically burns 1% of tokens — making $WUEK deflationary by design.</p>
-      <p class="section-text reveal">With 70% of supply locked in liquidity and transparent team wallets, we prioritize trust and long-term growth over quick gains. The community is the heartbeat of this project.</p>
+      <p class="section-text reveal">With 50% of supply locked in liquidity and transparent team wallets, we prioritize trust and long-term growth over quick gains. The community is the heartbeat of this project.</p>
       <a href="#buy" class="btn-primary reveal" style="display:inline-block;margin-top:1rem;">Get $WUEK Now →</a>
     </div>
     <div class="about-visual">
@@ -971,7 +1217,7 @@
         <div class="step-num">3</div>
         <div class="step-content">
           <h3>Buy BNB & Transfer to Wallet</h3>
-          <p>Purchase BNB from Binance, Bybit, or any exchange. Withdraw/transfer to your MetaMask or Trust Wallet address on the BSC network.</p>
+          <p>Purchase BNB from Binance, Indodax, or any exchange. Withdraw/transfer to your MetaMask or Trust Wallet address on the BSC network.</p>
         </div>
       </div>
       <div class="step reveal">
@@ -1142,7 +1388,106 @@
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 18000);
     }
-    setInterval(createParticle, 1500);
+    // ─── COUNTDOWN TIMER ───
+    const LAUNCH_TIME = new Date('2026-05-04T00:00:00Z').getTime();
+    const CONTRACT = '0xF1703D9622D85fFAA34A4527996BF066a41C83C9';
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = LAUNCH_TIME - now;
+
+      if (diff <= 0) {
+        // LAUNCHED! Sembunyikan timer, tampilkan contract & price
+        document.getElementById('timerGrid').style.display = 'none';
+        document.getElementById('launchDateText').style.display = 'none';
+        document.querySelector('.countdown-title').textContent = '🚀 WE ARE LIVE!';
+        document.getElementById('contractReveal').classList.add('show');
+        document.getElementById('price-section').classList.add('show');
+        fetchPrice();
+        return;
+      }
+
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cdDays').textContent    = String(days).padStart(2, '0');
+      document.getElementById('cdHours').textContent   = String(hours).padStart(2, '0');
+      document.getElementById('cdMinutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cdSeconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ─── PRICE FETCHER (DexScreener) ───
+    function formatNum(n) {
+      if (!n || isNaN(n)) return '—';
+      if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+      if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+      if (n >= 1e3) return '$' + (n / 1e3).toFixed(2) + 'K';
+      return '$' + n.toFixed(2);
+    }
+
+    async function fetchPrice() {
+      try {
+        const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CONTRACT}`);
+        const data = await res.json();
+        const pair = data.pairs && data.pairs[0];
+        if (!pair) return;
+
+        const price = parseFloat(pair.priceUsd) || 0;
+        const change = parseFloat(pair.priceChange?.h24) || 0;
+        const mcap = pair.fdv || pair.marketCap || 0;
+        const vol = pair.volume?.h24 || 0;
+        const liq = pair.liquidity?.usd || 0;
+        const txns = (pair.txns?.h24?.buys || 0) + (pair.txns?.h24?.sells || 0);
+
+        // Format harga dengan desimal yang cukup
+        let priceStr;
+        if (price < 0.000001) priceStr = '$' + price.toExponential(4);
+        else if (price < 0.001) priceStr = '$' + price.toFixed(8);
+        else if (price < 1) priceStr = '$' + price.toFixed(6);
+        else priceStr = '$' + price.toFixed(4);
+
+        document.getElementById('priceMain').textContent = priceStr;
+
+        const changeEl = document.getElementById('priceChange');
+        changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+        changeEl.className = 'price-change ' + (change >= 0 ? 'up' : 'down');
+
+        document.getElementById('priceMarketCap').textContent = formatNum(mcap);
+        document.getElementById('priceVolume').textContent = formatNum(vol);
+        document.getElementById('priceLiq').textContent = formatNum(liq);
+        document.getElementById('priceTxns').textContent = txns.toLocaleString();
+
+        const now = new Date();
+        document.getElementById('priceUpdated').innerHTML =
+          `<span class="price-live-dot"></span> Last updated: ${now.toUTCString()}`;
+
+      } catch(e) {
+        document.getElementById('priceUpdated').textContent = 'Unable to fetch price. Check DexScreener directly.';
+      }
+    }
+
+    // Refresh harga setiap 30 detik setelah launch
+    if (Date.now() >= LAUNCH_TIME) {
+      document.getElementById('price-section').classList.add('show');
+      document.getElementById('timerGrid').style.display = 'none';
+      document.getElementById('contractReveal').classList.add('show');
+      fetchPrice();
+      setInterval(fetchPrice, 30000);
+    } else {
+      // Cek setiap detik, kalau sudah launch langsung fetch price
+      const priceInterval = setInterval(() => {
+        if (Date.now() >= LAUNCH_TIME) {
+          fetchPrice();
+          setInterval(fetchPrice, 30000);
+          clearInterval(priceInterval);
+        }
+      }, 1000);
+    }
 
     // WUEKBIE DUCK SOUND - LUCU & UNIK
     function playDuckSound() {
