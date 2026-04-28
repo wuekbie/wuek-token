@@ -1014,6 +1014,11 @@
       <a href="#tokenomics" class="btn-outline">View Tokenomics</a>
     </div>
 
+    <div class="contract-badge" id="heroContractPlaceholder" style="opacity:0.5;cursor:default;">
+      <span style="color:rgba(240,236,224,0.4);font-size:0.6rem;letter-spacing:2px;">🔒</span>
+      <span style="color:var(--gold);font-size:0.65rem;letter-spacing:2px;">Contract Address Will Appear Here At Launch</span>
+    </div>
+
     <div class="contract-badge" id="heroContract" style="display:none;">
       <span style="color:rgba(240,236,224,0.4);font-size:0.6rem;letter-spacing:2px;">CONTRACT:</span>
       <span id="contractAddr">0xF1703D9622D85fFAA34A4527996BF066a41C83C9</span>
@@ -1403,6 +1408,7 @@
         document.querySelector('.countdown-title').textContent = '🚀 WE ARE LIVE!';
         document.getElementById('contractReveal').classList.add('show');
         document.getElementById('price-section').classList.add('show');
+        document.getElementById('heroContractPlaceholder').style.display = 'none';
         document.getElementById('heroContract').style.display = 'inline-flex';
         fetchPrice();
         return;
@@ -1477,6 +1483,7 @@
       document.getElementById('price-section').classList.add('show');
       document.getElementById('timerGrid').style.display = 'none';
       document.getElementById('contractReveal').classList.add('show');
+      document.getElementById('heroContractPlaceholder').style.display = 'none';
       document.getElementById('heroContract').style.display = 'inline-flex';
       fetchPrice();
       setInterval(fetchPrice, 30000);
