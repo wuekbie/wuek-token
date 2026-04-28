@@ -1308,7 +1308,7 @@
       <a href="https://x.com/wuekbie?s=11" target="_blank" class="social-link">
         <span class="social-icon">🐦</span> Twitter / X
       </a>
-      <a href="https://bscscan.com/token/0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="social-link">
+      <a href="https://bscscan.com" id="bscscanBtn" target="_blank" class="social-link">
         <span class="social-icon">🔍</span> BscScan
       </a>
       <a href="https://pancakeswap.finance/swap" id="communityBuyBtn" target="_blank" class="social-link">
@@ -1396,11 +1396,14 @@
     // Update semua link PancakeSwap dengan kontrak saat launch
     function activateBuyLinks() {
       const fullLink = `https://pancakeswap.finance/swap?outputCurrency=${CONTRACT}`;
+      const bscLink = `https://bscscan.com/token/${CONTRACT}`;
       const ids = ['navBuyBtn', 'heroBuyBtn', 'buyPageBtn', 'communityBuyBtn'];
       ids.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.href = fullLink;
       });
+      const bsc = document.getElementById('bscscanBtn');
+      if (bsc) bsc.href = bscLink;
     }
 
     // ─── COUNTDOWN TIMER ───
