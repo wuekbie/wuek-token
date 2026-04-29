@@ -796,7 +796,164 @@
       .steps::before { display: none; }
     }
 
-    /* ─── COUNTDOWN TIMER ─── */
+    /* ─── VISITOR STATS ─── */
+    #visitor-stats {
+      padding: 1rem 1.5rem;
+      background: var(--dark2);
+      border-top: 1px solid rgba(245,200,66,0.15);
+      border-bottom: 1px solid rgba(245,200,66,0.1);
+    }
+    .visitor-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+    .visitor-item {
+      text-align: center;
+      white-space: nowrap;
+    }
+    .visitor-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      text-shadow: var(--glow);
+      display: block;
+    }
+    .visitor-label {
+      font-size: 0.45rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(240,236,224,0.4);
+      margin-top: 0.1rem;
+    }
+    .visitor-divider {
+      width: 1px;
+      height: 25px;
+      background: rgba(245,200,66,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ─── FEEDBACK ─── */
+    .feedback-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 200;
+    }
+    .feedback-btn {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: none;
+      box-shadow: 0 5px 30px rgba(245,200,66,0.4);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .feedback-btn:hover { background: var(--gold2); transform: translateY(-3px); box-shadow: 0 10px 40px rgba(245,200,66,0.5); }
+    .feedback-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .feedback-modal.open { display: flex; }
+    .feedback-box {
+      background: var(--dark2);
+      border: 1px solid rgba(245,200,66,0.3);
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      animation: fadeUp 0.3s forwards;
+    }
+    .feedback-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: none;
+      border: none;
+      color: rgba(240,236,224,0.5);
+      font-size: 1.2rem;
+      cursor: none;
+      transition: color 0.3s;
+    }
+    .feedback-close:hover { color: var(--gold); }
+    .feedback-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+    .feedback-subtitle {
+      font-size: 0.75rem;
+      color: rgba(240,236,224,0.5);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .feedback-stars {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      cursor: none;
+    }
+    .feedback-star { opacity: 0.3; transition: all 0.2s; cursor: none; }
+    .feedback-star.active { opacity: 1; }
+    .feedback-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(245,200,66,0.2);
+      color: var(--light);
+      padding: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      resize: vertical;
+      min-height: 100px;
+      margin-bottom: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .feedback-textarea:focus { border-color: var(--gold); }
+    .feedback-textarea::placeholder { color: rgba(240,236,224,0.3); }
+    .feedback-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: none;
+      transition: all 0.3s;
+    }
+    .feedback-submit:hover { background: var(--gold2); }
+    .feedback-success {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .feedback-success.show { display: block; }
+    .feedback-success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .feedback-success p { color: rgba(240,236,224,0.6); font-size: 0.8rem; line-height: 1.8; }
     #countdown-section {
       padding: 5rem 4rem;
       background: var(--dark);
@@ -992,6 +1149,36 @@
     <a href="https://pancakeswap.finance/swap" id="navBuyBtn" target="_blank" class="nav-btn">Buy $WUEK</a>
   </nav>
 
+  <!-- FEEDBACK FLOATING BUTTON -->
+  <div class="feedback-float">
+    <button class="feedback-btn" onclick="openFeedback()">💬 Leave Feedback</button>
+  </div>
+
+  <!-- FEEDBACK MODAL -->
+  <div class="feedback-modal" id="feedbackModal">
+    <div class="feedback-box">
+      <button class="feedback-close" onclick="closeFeedback()">✕</button>
+      <div id="feedbackForm">
+        <div class="feedback-title">🦆 YOUR FEEDBACK</div>
+        <p class="feedback-subtitle">How do you feel about WUEKBIE ($WUEK)? Your opinion matters to us!</p>
+        <div class="feedback-stars" id="starContainer">
+          <span class="feedback-star" onclick="setRating(1)">⭐</span>
+          <span class="feedback-star" onclick="setRating(2)">⭐</span>
+          <span class="feedback-star" onclick="setRating(3)">⭐</span>
+          <span class="feedback-star" onclick="setRating(4)">⭐</span>
+          <span class="feedback-star" onclick="setRating(5)">⭐</span>
+        </div>
+        <textarea class="feedback-textarea" id="feedbackText" placeholder="Share your thoughts about $WUEK... (optional)"></textarea>
+        <button class="feedback-submit" onclick="submitFeedback()">🚀 Submit Feedback</button>
+      </div>
+      <div class="feedback-success" id="feedbackSuccess">
+        <div class="feedback-success-icon">🦆</div>
+        <div class="feedback-title">WUEK WUEK!</div>
+        <p>Thank you for your feedback!<br>Together we go to the moon! 🌕🚀</p>
+      </div>
+    </div>
+  </div>
+
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
@@ -1021,7 +1208,7 @@
 
     <div class="contract-badge" id="heroContract" style="display:none;">
       <span style="color:rgba(240,236,224,0.4);font-size:0.6rem;letter-spacing:2px;">CONTRACT:</span>
-      <span id="contractAddr">0xF1703D9622D85fFAA34A4527996BF066a41C83C9</span>
+      <span id="contractAddr">0x699a23A964b0422ea6bc4dC5884b17bfE38fA9D6</span>
       <button class="copy-btn" onclick="copyContract()">COPY</button>
     </div>
 
@@ -1066,10 +1253,10 @@
       <p style="font-size:0.8rem;color:rgba(240,236,224,0.6);letter-spacing:2px;margin-top:1rem;">CONTRACT ADDRESS</p>
       <div class="contract-badge" style="display:inline-flex;">
         <span style="color:rgba(240,236,224,0.4);font-size:0.6rem;letter-spacing:2px;">CA:</span>
-        <span style="color:var(--gold);">0xF1703D9622D85fFAA34A4527996BF066a41C83C9</span>
+        <span style="color:var(--gold);">0x699a23A964b0422ea6bc4dC5884b17bfE38fA9D6</span>
         <button class="copy-btn" onclick="copyContract()">COPY</button>
       </div>
-      <a href="https://pancakeswap.finance/swap?outputCurrency=0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="btn-primary" style="margin-top:1rem;">🥞 Buy $WUEK Now!</a>
+      <a href="https://pancakeswap.finance/swap?outputCurrency=0x699a23A964b0422ea6bc4dC5884b17bfE38fA9D6" target="_blank" class="btn-primary" style="margin-top:1rem;">🥞 Buy $WUEK Now!</a>
     </div>
   </section>
 
@@ -1098,7 +1285,7 @@
         </div>
       </div>
       <div class="price-update" id="priceUpdated">Updating...</div>
-      <a href="https://dexscreener.com/bsc/0xF1703D9622D85fFAA34A4527996BF066a41C83C9" target="_blank" class="dexscreener-btn">📊 View on DexScreener</a>
+      <a href="https://dexscreener.com/bsc/0x699a23A964b0422ea6bc4dC5884b17bfE38fA9D6" target="_blank" class="dexscreener-btn">📊 View on DexScreener</a>
     </div>
   </section>
 
@@ -1110,7 +1297,7 @@
         <div class="stat-label">Total Supply</div>
       </div>
       <div class="stat-item reveal">
-        <span class="stat-number">70%</span>
+        <span class="stat-number">60%</span>
         <div class="stat-label">Liquidity Locked</div>
       </div>
       <div class="stat-item reveal">
@@ -1152,10 +1339,17 @@
       <div class="token-grid">
         <div class="token-card reveal">
           <div class="token-icon">🏊</div>
-          <div class="token-pct">70%</div>
+          <div class="token-pct">60%</div>
           <div class="token-name">Liquidity Pool</div>
-          <div class="token-amount">700,000,000 WUEK</div>
+          <div class="token-amount">600,000,000 WUEK</div>
           <div class="token-desc">🔒 LOCKED — Permanently locked in PancakeSwap. LP tokens locked forever for maximum security and investor confidence.</div>
+        </div>
+        <div class="token-card reveal">
+          <div class="token-icon">💎</div>
+          <div class="token-pct">10%</div>
+          <div class="token-name">Staking Reward</div>
+          <div class="token-amount">100,000,000 WUEK</div>
+          <div class="token-desc">50% APY — Distributed every hour to stakers. Hold & earn $WUEK passively around the clock.</div>
         </div>
         <div class="token-card reveal">
           <div class="token-icon">📢</div>
@@ -1165,11 +1359,11 @@
           <div class="token-desc">Used for influencer campaigns, exchange listings, and community growth initiatives.</div>
         </div>
         <div class="token-card reveal">
-          <div class="token-icon">👥</div>
+          <div class="token-icon">⚙️</div>
           <div class="token-pct">8%</div>
-          <div class="token-name">Team & Dev</div>
+          <div class="token-name">Development</div>
           <div class="token-amount">80,000,000 WUEK</div>
-          <div class="token-desc">🔒 LOCKED — Locked with vesting schedule. Unlocked gradually to prevent dumping and ensure long-term commitment.</div>
+          <div class="token-desc">🔒 LOCKED — Funds ongoing development, smart contract upgrades, and platform expansion.</div>
         </div>
         <div class="token-card reveal">
           <div class="token-icon">🤝</div>
@@ -1317,6 +1511,31 @@
     </div>
   </section>
 
+  <!-- VISITOR STATS BAR -->
+  <div id="visitor-stats">
+    <div class="visitor-inner">
+      <div class="visitor-item">
+        <span class="visitor-num" id="visitorCount">0</span>
+        <div class="visitor-label">👁️ Total Visitors</div>
+      </div>
+      <div class="visitor-divider"></div>
+      <div class="visitor-item">
+        <span class="visitor-num" id="onlineCount">0</span>
+        <div class="visitor-label">🟢 Online Now</div>
+      </div>
+      <div class="visitor-divider"></div>
+      <div class="visitor-item">
+        <span class="visitor-num" id="feedbackCount">0</span>
+        <div class="visitor-label">💬 Feedbacks</div>
+      </div>
+      <div class="visitor-divider"></div>
+      <div class="visitor-item">
+        <span class="visitor-num" id="ratingAvg">0.0</span>
+        <div class="visitor-label">⭐ Avg Rating</div>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">WUEKBIE</div>
@@ -1354,7 +1573,7 @@
 
     // Copy contract
     function copyContract() {
-      navigator.clipboard.writeText('0xF1703D9622D85fFAA34A4527996BF066a41C83C9');
+      navigator.clipboard.writeText('0x699a23A964b0422ea6bc4dC5884b17bfE38fA9D6');
       const btn = document.querySelector('.copy-btn');
       btn.textContent = 'COPIED!';
       btn.style.background = '#39d98a';
@@ -1408,7 +1627,7 @@
 
     // ─── COUNTDOWN TIMER ───
     const LAUNCH_TIME = new Date('2026-05-04T00:00:00Z').getTime();
-    const CONTRACT = '0xF1703D9622D85fFAA34A4527996BF066a41C83C9';
+    const CONTRACT = '0x699a23A964b0422ea6bc4dC5884b17bfE38fA9D6';
 
     function updateCountdown() {
       const now = Date.now();
@@ -1606,6 +1825,89 @@
     // Bunyi bebek sambutan saat halaman dibuka
     window.addEventListener('load', function() {
       setTimeout(function() { playDuckSound(); }, 1200);
+    });
+
+    // ─── VISITOR STATS ───
+    let selectedRating = 0;
+    let feedbacks = JSON.parse(localStorage.getItem('wuek_feedbacks') || '[]');
+    let visitors = parseInt(localStorage.getItem('wuek_visitors') || '100');
+
+    const sessionKey = 'wuek_session_' + new Date().toDateString();
+    if (!sessionStorage.getItem(sessionKey)) {
+      sessionStorage.setItem(sessionKey, '1');
+      visitors++;
+      localStorage.setItem('wuek_visitors', visitors);
+    }
+
+    const onlineNow = Math.floor(Math.random() * 20) + Math.min(visitors, 8);
+
+    function animateNum(el, target) {
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 50));
+      const iv = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current.toLocaleString();
+        if (current >= target) clearInterval(iv);
+      }, 30);
+    }
+
+    animateNum(document.getElementById('visitorCount'), visitors);
+    animateNum(document.getElementById('onlineCount'), onlineNow);
+    animateNum(document.getElementById('feedbackCount'), feedbacks.length);
+
+    function updateRatingDisplay() {
+      const avg = feedbacks.length > 0
+        ? (feedbacks.reduce((s, f) => s + f.rating, 0) / feedbacks.length).toFixed(1)
+        : '0.0';
+      document.getElementById('ratingAvg').textContent = avg;
+    }
+    updateRatingDisplay();
+
+    // ─── FEEDBACK ───
+    function openFeedback() {
+      playDuckSound();
+      document.getElementById('feedbackModal').classList.add('open');
+      document.getElementById('feedbackForm').style.display = 'block';
+      document.getElementById('feedbackSuccess').classList.remove('show');
+      selectedRating = 0;
+      updateStars(0);
+      document.getElementById('feedbackText').value = '';
+    }
+
+    function closeFeedback() {
+      document.getElementById('feedbackModal').classList.remove('open');
+    }
+
+    function setRating(n) {
+      selectedRating = n;
+      updateStars(n);
+      playDuckSound();
+    }
+
+    function updateStars(n) {
+      document.querySelectorAll('.feedback-star').forEach((s, i) => {
+        s.classList.toggle('active', i < n);
+      });
+    }
+
+    function submitFeedback() {
+      if (selectedRating === 0) {
+        alert('Please select a star rating first! 🦆');
+        return;
+      }
+      const text = document.getElementById('feedbackText').value.trim();
+      feedbacks.push({ rating: selectedRating, comment: text, date: new Date().toISOString() });
+      localStorage.setItem('wuek_feedbacks', JSON.stringify(feedbacks));
+      document.getElementById('feedbackCount').textContent = feedbacks.length;
+      updateRatingDisplay();
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('feedbackSuccess').classList.add('show');
+      playDuckSound();
+      setTimeout(() => closeFeedback(), 3000);
+    }
+
+    document.getElementById('feedbackModal').addEventListener('click', function(e) {
+      if (e.target === this) closeFeedback();
     });
 
   </script>
